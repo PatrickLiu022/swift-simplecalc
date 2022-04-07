@@ -1,7 +1,62 @@
+import CoreFoundation
 print("Welcome to the UW Calculator Playground")
 
 func calculate(_ args: [String]) -> Int {
-    return -1
+    
+    func avg(_ list : [Int]) -> Int {
+        return 1
+    }
+    
+    let avg : ([String]) -> Int = {
+        (list) in
+        var sum = 0;
+        for i in list {
+            if Int(i) != nil {
+                sum += Int(i)!
+            }
+        }
+        return sum / list.count
+    }
+    
+    var maybeAnInteger : Int? = 0
+    var index = 0
+    var answer = 0
+
+    while maybeAnInteger != nil {
+        if index >= args.count {
+            maybeAnInteger = nil
+        } else {
+            if Int(args[index]) == nil {
+                let operation = args[index]
+                switch operation {
+                case "+":
+                    answer = Int(args[0])! + Int(args[2])!
+                case "-":
+                    answer = Int(args[0])! - Int(args[2])!
+                case "*":
+                    answer = Int(args[0])! * Int(args[2])!
+                case "/":
+                    answer = Int(args[0])! / Int(args[2])!
+                case "%":
+                    answer = Int(args[0])! % Int(args[2])!
+                case "count":
+                    answer = args.count - 1
+                case "avg":
+                    answer = avg(args)
+                    print(answer)
+                case "fact":
+                    answer = -1
+                    print("fact")
+                default:
+                    answer = -1
+                    print("error")
+                }
+            }
+        }
+        index += 1
+    }
+    
+    return answer
 }
 
 func calculate(_ arg: String) -> Int {
@@ -88,3 +143,5 @@ calculate(["2.0", "/", "2.0"]) == 1.0
 calculate(["2.0", "%", "2.0"]) == 0.0
 calculate("1.0 2.0 3.0 4.0 5.0 count") == 5
 */
+
+
