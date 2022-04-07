@@ -3,19 +3,36 @@ print("Welcome to the UW Calculator Playground")
 
 func calculate(_ args: [String]) -> Int {
     
-    func avg(_ list : [Int]) -> Int {
-        return 1
-    }
-    
     let avg : ([String]) -> Int = {
         (list) in
-        var sum = 0;
+        var sum = 0
+        if (list.count == 1 && Int(list[0]) == nil) {
+            return 0
+        }
         for i in list {
             if Int(i) != nil {
                 sum += Int(i)!
             }
         }
-        return sum / list.count
+        return sum / (list.count - 1)
+    }
+    
+    let fact : ([String]) -> Int = {
+        (list) in
+        if (Int(list[0]) == nil) {
+            return 0
+        }
+        var fact = 1
+        var index = 1
+        while index <= Int(list[0])! {
+            fact *= index
+            index += 1
+        }
+        if list.count <= 1 {
+            return 0
+        }
+        
+        return fact
     }
     
     var maybeAnInteger : Int? = 0
@@ -43,10 +60,8 @@ func calculate(_ args: [String]) -> Int {
                     answer = args.count - 1
                 case "avg":
                     answer = avg(args)
-                    print(answer)
                 case "fact":
-                    answer = -1
-                    print("fact")
+                    answer = fact(args)
                 default:
                     answer = -1
                     print("error")
@@ -60,7 +75,14 @@ func calculate(_ args: [String]) -> Int {
 }
 
 func calculate(_ arg: String) -> Int {
-    return -1
+    var subSeqArr = arg.split(separator: " ")
+    var list : [String] = []
+    
+    for i in subSeqArr {
+        list.append(String(i))
+    }
+    let result = calculate(list)
+    return result
 }
 
 // -------------------------------------------
@@ -108,7 +130,7 @@ calculate("5 fact") == 120
 
 // Implement calculate([String]) and calculate(String)
 // to handle negative numbers
-/*
+
 calculate(["2", "+", "-2"]) == 0
 calculate(["2", "-", "-2"]) == 4
 calculate(["2", "*", "-2"]) == -4
@@ -123,7 +145,7 @@ calculate("2 - -2") == 4
 calculate("-2 / 2") == -1
 
 calculate("1 -2 3 -4 5 count") == 5
-*/
+
  
 // Implement calculate([String]) and calculate(String)
 // to use floating-point values
@@ -142,6 +164,4 @@ calculate(["2.5", "*", "2.5"]) == 6.25
 calculate(["2.0", "/", "2.0"]) == 1.0
 calculate(["2.0", "%", "2.0"]) == 0.0
 calculate("1.0 2.0 3.0 4.0 5.0 count") == 5
-*/
-
-
+ */
